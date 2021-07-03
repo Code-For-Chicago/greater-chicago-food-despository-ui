@@ -11,15 +11,17 @@ function DatasetSelector(props) {
 	const selectedFeat = useSelector(state => state.selectedFeat)
 
 	// Radio Options to select feature for data display
-	const featOptions = {
-		featNames: ['Poverty Rates','Food Insecurity','WIC Usage','Snap Usage','Census',],
-		featKeys: ['poverty_data', 'insecurity_data', 'WIC', 'snap_data', 'race_data']
-	}
+	const featOptions = { 
+		'Poverty Rates': 'poverty_data', 
+		'Food Insecurity': 'insecurity_data', 
+		'WIC Usage': 'WIC', 
+		'Snap Usage': 'snap_data', 
+		'Census': 'race_data' }
 
-	const handleSelection = (idx) => {
+	const handleSelection = (feature) => {
 		// Handle selection in here.
 		dispatch(updateSelectedFeat({...selectedFeat, ...{
-			selectedfilterFeat: featOptions.featKeys[idx],
+			selectedfilterFeat: featOptions[feature],
 			selectedfilterSubfeat: null,
 			featLabel: null
 		}}))
@@ -30,7 +32,7 @@ function DatasetSelector(props) {
 		<div className="data-selector">
 			<h3 className="data-selector-title">Show data for:</h3>
 			<RadioSelect2
-				data={featOptions.featNames}
+				data={Object.keys(featOptions)}
 				handleChange={handleSelection}
 				alignment={'column'}
 			/>

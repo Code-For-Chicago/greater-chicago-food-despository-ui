@@ -46,6 +46,6 @@ nav button:focus {
   display: flex;
   flex-direction: column;
   max-height: 100vh;
-  min-width: 260px;
-  max-width: 260px;
+  min-width: 280px;
+  max-width: 280px;
 }

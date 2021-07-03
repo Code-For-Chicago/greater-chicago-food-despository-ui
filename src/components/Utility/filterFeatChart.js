@@ -15,7 +15,7 @@ export const filterFeatChart = (data, selectedFeat) => {
           },
           {key: 'Total Population', 
            value: (reqCountyData.poverty_data.poverty_population_total - reqCountyData.poverty_data[selectedfilterSubfeat]), 
-           percent: Math.round((1 - reqCountyData.poverty_data.poverty_percentages[selectedfilterSubfeat]) * 100)
+           percent: 100
           }
         ]
         break

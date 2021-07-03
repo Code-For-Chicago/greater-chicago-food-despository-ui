@@ -8,16 +8,16 @@ import './RadioSelect.css'
  *  * Some data needs to be filtered here for pie chart (use redux slice as props needs to be hoisted)
  */
 function RadioSelect2(props) {
-  const [selectFeat, setFeat] = useState(0)
+  const [selectFeat, setFeat] = useState(props.data[0])
 
   if(!props.handleChange) console.error('RadioSelect is missing an onChange in its props. Make sure this is on purpose.')
 
-  const handleChange = (idx) => {
-    setFeat(idx)
+  const handleChange = (feature) => {
+    setFeat(feature)
     if(!props.handleChange) {
       return
     }
-    props.handleChange(idx)
+    props.handleChange(feature)
   }
 
 
@@ -32,8 +32,8 @@ function RadioSelect2(props) {
                    id={feature} 
                    name={feature} 
                    className='radioOpt' 
-                   checked={selectFeat===idx} 
-                   onChange={() => handleChange(idx)}>
+                   checked={selectFeat===feature} 
+                   onChange={() => handleChange(feature)}>
             </input>
             <h3 className='radioLabel'>{feature}</h3>
           </label>
