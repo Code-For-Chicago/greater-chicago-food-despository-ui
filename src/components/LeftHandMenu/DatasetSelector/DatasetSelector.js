@@ -1,36 +1,43 @@
-import React from 'react';
-import RadioSelect from '../../Utility/RadioSelect/RadioSelect';
+import React from 'react'
+import RadioSelect2 from '../../Utility/RadioSelect/RadioSelect2'
 
-import './DatasetSelector.css';
+import { useSelector, useDispatch } from 'react-redux'
+import { updateSelectedFeat } from  '../../../redux/selectedFeatReducer'
+
+import './DatasetSelector.css'
 
 function DatasetSelector(props) {
-	/* For testing - remove later. These will either be passed in as props or come from the store. */
-	const options = [
-		'Poverty Rates',
-		'Food Insecurity',
-		'WIC Usage',
-		'Snap Usage',
-		'Census',
-	];
+	const dispatch = useDispatch()
+	const selectedFeat = useSelector(state => state.selectedFeat)
 
-	const handleSelection = (idx) => {
+	// Radio Options to select feature for data display
+	const featOptions = { 
+		'Poverty Rates': 'poverty_data', 
+		'Food Insecurity': 'insecurity_data', 
+		'WIC Usage': 'WIC', 
+		'Snap Usage': 'snap_data', 
+		'Census': 'race_data' }
+
+	const handleSelection = (feature) => {
 		// Handle selection in here.
-	};
-
-	/* For later - When state changes, update the store */
-	// const onSelectChange = useEffect() ...
+		dispatch(updateSelectedFeat({...selectedFeat, ...{
+			selectedfilterFeat: featOptions[feature],
+			selectedfilterSubfeat: null,
+			featLabel: null
+		}}))
+	}
 
 	/* Don't load this bar if there are no dataset options */
-	return !options ? null : (
-		<div id="data-selector">
-			<h3 id="data-selector-title">Show data for:</h3>
-			<RadioSelect
-				data={options}
+	return !featOptions ? null : (
+		<div className="data-selector">
+			<h3 className="data-selector-title">Show data for:</h3>
+			<RadioSelect2
+				data={Object.keys(featOptions)}
 				handleChange={handleSelection}
 				alignment={'column'}
 			/>
 		</div>
-	);
+	)
 }
 
-export default DatasetSelector;
+export default DatasetSelector

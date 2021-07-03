@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import './RadioSelect.css'
 
@@ -7,23 +7,19 @@ import './RadioSelect.css'
  * options data comes in as props from RightHandMenu
  *  * Some data needs to be filtered here for pie chart (use redux slice as props needs to be hoisted)
  */
-function RadioSelect(props) {
-  const [selectFeat, setFeat] = useState(0)
+function RadioSelect2(props) {
+  const [selectFeat, setFeat] = useState(props.data[0])
 
   if(!props.handleChange) console.error('RadioSelect is missing an onChange in its props. Make sure this is on purpose.')
 
-  const onOptionChange = (idx) => {
-    setFeat(idx)
+  const handleChange = (feature) => {
+    setFeat(feature)
     if(!props.handleChange) {
       return
     }
-    props.handleChange(idx)
+    props.handleChange(feature)
   }
 
-  useEffect(() => {
-    onOptionChange(0)
-   //eslint-disable-next-line react-hooks/exhaustive-deps
-  },[props.data])
 
   const { alignment } = props
 
@@ -36,9 +32,9 @@ function RadioSelect(props) {
                    id={feature} 
                    name={feature} 
                    className='radioOpt' 
-                   checked={selectFeat===idx} 
-                   onChange={() => onOptionChange(idx)}>
-              </input>
+                   checked={selectFeat===feature} 
+                   onChange={() => handleChange(feature)}>
+            </input>
             <h3 className='radioLabel'>{feature}</h3>
           </label>
         ))
@@ -47,4 +43,4 @@ function RadioSelect(props) {
   )
 }
 
-export default RadioSelect
+export default RadioSelect2
